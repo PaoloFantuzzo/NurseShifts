@@ -38,7 +38,7 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   background-color: var(--bg-main);
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
@@ -49,19 +49,19 @@ html, body {
 .app-container {
   max-width: 460px;
   margin: 0 auto;
-  padding: calc(var(--safe-top) + 12px) 16px calc(var(--safe-bottom) + 28px);
+  padding: calc(var(--safe-top) + 6px) 12px calc(var(--safe-bottom) + 10px);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   min-height: 100dvh;
 }
 
-/* Header Mese */
+/* Header Mese Compatto */
 .month-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 4px 8px;
+  padding: 0 2px 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -73,7 +73,7 @@ html, body {
 }
 
 .month-title {
-  font-size: 1.55rem;
+  font-size: 1.22rem;
   font-weight: 700;
   letter-spacing: -0.3px;
   margin: 0;
@@ -83,9 +83,9 @@ html, body {
   background: var(--bg-component);
   color: var(--accent-cyan);
   border: 1px solid rgba(50, 173, 230, 0.35);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 999px;
   cursor: pointer;
 }
@@ -94,8 +94,8 @@ html, body {
   background: transparent;
   border: none;
   color: var(--text-primary);
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -108,70 +108,76 @@ html, body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Summary Card */
+/* Summary Card Compatta (Settimana + Mese + 4 Pulsanti Quadrati) */
 .summary-card {
   background: var(--bg-card);
-  border-radius: 20px;
-  padding: 16px 18px;
+  border-radius: 16px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .summary-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
+}
+
+.summary-metrics-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .summary-metric {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .summary-label {
-  font-size: 0.76rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  line-height: 1.25;
+  line-height: 1.1;
 }
 
 .summary-value-row {
   display: flex;
   align-items: baseline;
-  gap: 5px;
+  gap: 4px;
   margin-top: 2px;
-  flex-wrap: wrap;
 }
 
 .summary-value-week {
-  font-size: 1.55rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--accent-green);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.4px;
 }
 
 .summary-value-week .week-target {
   color: var(--text-secondary);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
 }
 
 .summary-value-month {
-  font-size: 1.55rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.4px;
 }
 
 .delta-badge {
-  font-size: 0.7rem;
+  font-size: 0.64rem;
   font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 6px;
+  padding: 1px 5px;
+  border-radius: 5px;
 }
 
 .delta-pos {
@@ -191,13 +197,13 @@ html, body {
 
 .summary-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .icon-action-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 13px;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   background: var(--bg-component);
   border: 1px solid rgba(255, 255, 255, 0.06);
   color: var(--text-primary);
@@ -206,12 +212,19 @@ html, body {
   justify-content: center;
   cursor: pointer;
   position: relative;
-  transition: transform 0.12s, background 0.15s;
+  transition: transform 0.12s, background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .icon-action-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.93);
   background: #3a3a3c;
+}
+
+.icon-action-btn.bolt-active {
+  background: rgba(255, 214, 10, 0.2);
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+  box-shadow: 0 0 10px rgba(255, 214, 10, 0.25);
 }
 
 /* Pulsazione morbida "effetto respiro" quando ci sono nuovi eventi da inviare al Calendario iPhone */
@@ -238,13 +251,13 @@ html, body {
   position: absolute;
   top: -5px;
   right: -5px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
   border-radius: 999px;
   background: #00e5b8;
   color: #06201a;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -267,58 +280,19 @@ html, body {
   transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Barra Modalità Pennello / Inserimento Rapido */
-.quick-paint-bar {
+/* Striscia compatta dei Turni quando il Fulmine (Inserimento Rapido) è acceso */
+.paint-palette-strip {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: var(--bg-card);
-  border-radius: 16px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.quick-paint-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.quick-paint-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg-component);
-  color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 7px 12px;
-  border-radius: 10px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.quick-paint-toggle.active {
-  background: rgba(50, 173, 230, 0.2);
-  border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
-}
-
-.quick-paint-hint {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-}
-
-.paint-palette {
-  display: flex;
-  gap: 8px;
+  gap: 6px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-top: 6px;
+  padding-bottom: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   scrollbar-width: none;
+  animation: fadeIn 0.16s ease-out;
 }
 
-.paint-palette::-webkit-scrollbar {
+.paint-palette-strip::-webkit-scrollbar {
   display: none;
 }
 
@@ -326,12 +300,12 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 11px;
-  border-radius: 10px;
+  padding: 6px 10px;
+  border-radius: 9px;
   background: var(--bg-component);
   border: 1.5px solid transparent;
   color: var(--text-primary);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
@@ -339,9 +313,9 @@ html, body {
 }
 
 .paint-chip.selected {
-  border-color: #ffffff;
+  border-color: var(--accent-yellow);
   background: #38383c;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .paint-dot {
@@ -351,11 +325,11 @@ html, body {
   flex-shrink: 0;
 }
 
-/* Calendario */
+/* Calendario Compatto */
 .calendar-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
   touch-action: pan-y;
 }
 
@@ -363,11 +337,11 @@ html, body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  padding: 2px 0 4px;
+  padding: 0 0 2px;
 }
 
 .weekday-label {
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-secondary);
 }
@@ -379,13 +353,13 @@ html, body {
 .days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 7px;
+  gap: 5px;
 }
 
 .day-cell {
-  aspect-ratio: 1 / 1.04;
+  height: 43px;
   background: var(--bg-cell);
-  border-radius: 14px;
+  border-radius: 12px;
   position: relative;
   display: flex;
   align-items: center;
@@ -400,33 +374,32 @@ html, body {
 
 .day-cell.outside-month {
   background: var(--bg-cell-outside);
-  opacity: 0.42;
+  opacity: 0.4;
 }
 
 .day-cell.today-cell {
   background: #2c2c31;
 }
 
-/* Quando un giorno è selezionato, evidenziamo il riquadro esterno così il cerchio mantiene SEMPRE il colore del turno o del corso! */
 .day-cell.selected-day {
   background: #323237;
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.75);
 }
 
 .day-ring {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2.8px solid transparent;
+  border: 2.5px solid transparent;
   transition: all 0.15s;
   position: relative;
 }
 
 .day-number {
-  font-size: 1.05rem;
+  font-size: 0.96rem;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1;
@@ -439,16 +412,16 @@ html, body {
 /* Indicatori Corso & Note sulla cella */
 .course-badge-dot {
   position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 15px;
-  height: 15px;
+  top: 2px;
+  right: 2px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   border: 1.5px solid var(--bg-cell);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
+  font-size: 7px;
   color: #000;
   font-weight: 800;
   box-shadow: 0 1px 4px rgba(0,0,0,0.4);
@@ -456,11 +429,11 @@ html, body {
 
 .note-indicator-dot {
   position: absolute;
-  bottom: 4px;
+  bottom: 3px;
   left: 50%;
   transform: translateX(-50%);
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--accent-yellow);
 }
@@ -468,11 +441,11 @@ html, body {
 /* Box Dettaglio Giorno Selezionato (Sotto il Calendario) */
 .day-detail-card {
   background: var(--bg-component);
-  border-radius: 16px;
-  padding: 14px 16px;
+  border-radius: 14px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   animation: fadeIn 0.18s ease-out;
 }
@@ -482,77 +455,76 @@ html, body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.day-detail-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.day-detail-date {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
 .holiday-tag {
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 700;
   background: rgba(255, 69, 58, 0.18);
   color: var(--accent-red);
-  padding: 2px 7px;
-  border-radius: 6px;
-}
-
-.edit-day-btn {
-  background: rgba(50, 173, 230, 0.18);
-  color: var(--accent-cyan);
-  border: 1px solid rgba(50, 173, 230, 0.35);
-  border-radius: 10px;
-  padding: 6px 11px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-left: 6px;
 }
 
 .day-detail-items {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .detail-pill-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.88rem;
+  gap: 8px;
+  font-size: 0.82rem;
   background: rgba(0, 0, 0, 0.25);
-  padding: 9px 12px;
-  border-radius: 11px;
+  padding: 6px 8px 6px 10px;
+  border-radius: 10px;
 }
 
-.detail-color-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
+.detail-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   flex-shrink: 0;
 }
 
-.ics-mini-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.edit-mini-btn {
+  width: 30px;
+  height: 30px;
+  background: rgba(50, 173, 230, 0.18);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(50, 173, 230, 0.35);
   border-radius: 8px;
-  padding: 5px 8px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
   cursor: pointer;
-  white-space: nowrap;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.edit-mini-btn:active {
+  transform: scale(0.92);
+}
+
+.detail-pill-row .delete-mini-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 69, 58, 0.3);
+  flex-shrink: 0;
+}
+
+.detail-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 /* Modali / Bottom Sheet */
@@ -841,8 +813,8 @@ html, body {
   color: var(--accent-red);
   border: none;
   border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 0.78rem;
+  padding: 5px 8px;
+  font-size: 0.76rem;
   font-weight: 700;
   cursor: pointer;
 }

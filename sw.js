@@ -1,4 +1,5 @@
-const CACHE_NAME = 'nurseshifts-pwa-v10';
+const CACHE_NAME = 'nurseshifts-pwa-v12';
+const ICS_CACHE_NAME = 'nurseshifts-ics-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -22,7 +23,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys.map((key) => {
-          if (key !== CACHE_NAME) {
+          if (key !== CACHE_NAME && key !== ICS_CACHE_NAME) {
             return caches.delete(key);
           }
         })
@@ -34,6 +35,26 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  // Intercetta la richiesta del file calendario .ics per far aprire nativamente il Calendario su iPhone
+  if (event.request.url.includes('turni-nurseshifts.ics')) {
+    event.respondWith(
+      caches.open(ICS_CACHE_NAME).then((cache) =>
+        cache.match('./turni-nurseshifts.ics', { ignoreSearch: true }).then((res) => {
+          if (res) return res;
+          return new Response('BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR', {
+            status: 200,
+            headers: {
+              'Content-Type': 'text/calendar; charset=utf-8',
+              'Content-Disposition': 'inline; filename="turni.ics"'
+            }
+          });
+        })
+      )
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       const fetchPromise = fetch(event.request)
