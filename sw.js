@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nurseshifts-pwa-v17';
+const CACHE_NAME = 'nurseshifts-pwa-v18';
 const ICS_CACHE_NAME = 'nurseshifts-ics-v1';
 const ASSETS_TO_CACHE = [
   './',
@@ -6,9 +6,7 @@ const ASSETS_TO_CACHE = [
   './styles.css',
   './app.js',
   './manifest.json',
-  './icons/apple-touch-icon.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icon-v2.png'
 ];
 
 self.addEventListener('install', (event) => {
