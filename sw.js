@@ -1,17 +1,28 @@
-const CACHE_NAME = 'nurseshifts-pwa-v19';
+const CACHE_NAME = 'nurseshifts-pwa-v20';
 const ICS_CACHE_NAME = 'nurseshifts-ics-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './styles.css',
   './app.js',
+  './app.js?v=20',
   './manifest.json',
   './icon-v2.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.all(
+        ASSETS_TO_CACHE.map((url) =>
+          fetch(url, { cache: 'no-cache' }).then((res) => {
+            if (res && res.status === 200) {
+              return cache.put(url, res);
+            }
+          }).catch(() => {})
+        )
+      )
+    )
   );
   self.skipWaiting();
 });
@@ -53,21 +64,20 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Strategia Network-First con cache: 'no-cache' (aggiornamento immediato quando online, 100% funzionante dalla cache quando offline!)
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(() => cachedResponse);
-
-      return cachedResponse || fetchPromise;
-    })
+    fetch(event.request, { cache: 'no-cache' })
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() =>
+        caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => cachedResponse)
+      )
   );
 });

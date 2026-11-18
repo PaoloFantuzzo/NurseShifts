@@ -23,11 +23,13 @@
   <div id="app"></div>
   <input type="file" id="backup-file-input" accept=".json,application/json" style="display: none;" />
 
-  <script src="./app.js"></script>
+  <script src="./app.js?v=20"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
+        navigator.serviceWorker.register('./sw.js').then((reg) => {
+          reg.update();
+        }).catch(() => {});
       });
     }
   </script>
