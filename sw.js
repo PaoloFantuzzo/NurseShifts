@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nurseshifts-pwa-v18';
+const CACHE_NAME = 'nurseshifts-pwa-v19';
 const ICS_CACHE_NAME = 'nurseshifts-ics-v1';
 const ASSETS_TO_CACHE = [
   './',
